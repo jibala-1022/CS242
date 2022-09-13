@@ -1,4 +1,0 @@
-main.cpp
-index.html
-styles.css
-file
