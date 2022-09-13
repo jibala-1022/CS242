@@ -1,0 +1,36 @@
+#!/bin/bash
+
+source="/c/Users/BALAJI/Desktop/CS242/Assignment02/Backup/myfiles.txt"
+source1="/c/Users/BALAJI/Desktop/CS242/Assignment02/Backup/"
+destination="/c/Users/BALAJI/Desktop/CS242/Assignment02/Backup/Drive"
+
+myfile=$1
+drive=$2/
+
+if [ $# -ne 2 ]; then
+  echo "Only $# arguments are passed"
+  exit 1
+fi
+
+if ! [[ -f $myfile && -d $drive ]] ; then
+  if ! [[ -f $myfile ]]; then
+    echo "$myfile is not a file"
+  fi
+  if ! [[ -d $drive ]]; then
+    echo "$drive is not a folder"
+  fi
+  exit 1
+fi
+
+while read -r file;
+do
+  arr=(${file//./ })
+  newfile="${arr[0]}.bak"
+  echo $newfile
+  touch $drive$newfile
+  echo $file
+  # cat "$file/\r$//" > $drive$newfile
+  # sed $'s/\r$//' $file
+  cat $source1$file >> $drive$newfile
+  # cp ${source1}/${file} ${destination}/${newfile}
+done < "$source"
