@@ -1,0 +1,11 @@
+body{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: gray;
+}
+
+h1{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: white;
+}

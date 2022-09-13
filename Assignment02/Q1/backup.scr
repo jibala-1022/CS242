@@ -1,0 +1,40 @@
+#!/bin/bash
+
+args=$#
+fileslist=$1
+directory=$2
+
+if [[ $args -ne 2 ]]; then
+  echo "$args Arguments were passed"
+  echo "Enter the backup Fileslist and Directory"
+  exit 1
+fi
+
+if ! [[ -f $fileslist && -d $directory ]]; then
+  if ! [[ -f $fileslist ]]; then
+    echo "$fileslist is not a File.....Enter a valid File name"
+  fi
+  if ! [[ -d $directory ]]; then
+    echo "$directory is not a Directory.....Enter a valid Directory name"
+  fi
+  exit 1
+fi
+
+backed=0
+total=0
+echo "---------- Backup started! ----------"
+while read file;
+do
+  if [[ -f $file ]]; then
+    arr=(${file//./ })
+    newfile="$directory/${arr[0]}.bak"
+    echo "Backing up $file............."
+    cat $file >> $newfile
+    count=$((count+1))
+  else
+    echo "!!! $file not found.............skipped"
+  fi
+  total=$((total+1))
+done < "$fileslist"
+echo "$count/$total files backed up :)"
+echo "---------- Backup finished! ----------"
